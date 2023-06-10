@@ -14,8 +14,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    private UnggahViewAdapter unggahViewAdapter;
-    private List<Unggah> data;
+
 
 
     @Override
@@ -29,20 +28,10 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
-
         }
 
-        unggahViewAdapter = new UnggahViewAdapter();
-        binding.rvUnggah.setLayoutManager(new LinearLayoutManager(this));
-        binding.rvUnggah.setAdapter(unggahViewAdapter);
-
-        binding.fabInput.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddUnggahActivity.class);
-                startActivity(intent);
-            }
-
-        });
     }
+};
+
+
+
