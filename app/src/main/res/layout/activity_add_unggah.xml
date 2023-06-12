@@ -16,17 +16,107 @@
         android:layout_marginBottom="20dp">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_content"
+            android:id="@+id/til_Nama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:counterEnabled="true"
             app:counterMaxLength="200">
 
             <EditText
-                android:id="@+id/et_content"
+                android:id="@+id/et_Nama"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Content"
+                android:hint="Nama"
+                android:inputType="none"
+                android:maxLength="180" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_Alamat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/til_Nama"
+            app:counterEnabled="true"
+            app:counterMaxLength="200">
+
+            <EditText
+                android:id="@+id/et_Alamat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Alamat"
+                android:inputType="none"
+                android:maxLength="180" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_Number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/til_Alamat"
+            app:counterEnabled="true"
+            app:counterMaxLength="200">
+
+            <EditText
+                android:id="@+id/et_Number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="No Telepon"
+                android:inputType="none"
+                android:maxLength="180" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_Info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/til_Number"
+            app:counterEnabled="true"
+            app:counterMaxLength="200">
+
+            <EditText
+                android:id="@+id/et_Info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="No Kamar"
+                android:inputType="none"
+                android:maxLength="180" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_check_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/til_Info"
+            app:counterEnabled="true"
+            app:counterMaxLength="200">
+
+            <EditText
+                android:id="@+id/et_check_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Check-In"
+                android:inputType="none"
+                android:maxLength="180" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_check_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/til_check_in"
+            app:counterEnabled="true"
+            app:counterMaxLength="200">
+
+            <EditText
+                android:id="@+id/et_Check_Out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Check - Out"
                 android:inputType="none"
                 android:maxLength="180" />
 
@@ -36,7 +126,7 @@
             android:id="@+id/btn_Tambah"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/til_content"
+            android:layout_below="@+id/til_check_out"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="16dp"
             android:text="Tambah" />
