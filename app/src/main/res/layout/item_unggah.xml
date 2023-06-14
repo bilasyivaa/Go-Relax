@@ -29,7 +29,7 @@
                 tools:text="NAMA             :"/>
 
             <TextView
-                android:id="@+id/tv_alamat"
+                android:id="@+id/tv_Alamat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:layout_below="@+id/tv_alamat"
+                android:layout_below="@+id/tv_Alamat"
                 android:layout_marginTop="10dp"
                 tools:text="NO TELEPON :" />
 
