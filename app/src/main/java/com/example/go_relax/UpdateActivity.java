@@ -32,11 +32,11 @@ public class UpdateActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String Nama = binding.etNama.getText().toString();
                 String Alamat = binding.etAlamat.getText().toString();
-                String Number = binding.etNumber.getText().toString();
-                String Info = binding.etInfo.getText().toString();
-                String CheckIn = binding.etCheckIn.getText().toIn();
-                String CheckOut = binding.etCheckOut.getText().toS();
-                String CreatedDate = binding.etCreatedDate.getText().tg();
+                int Number = Integer.parseInt(binding.etNumber.getText().toString());
+                int Info = Integer.parseInt(binding.etInfo.getText().toString());
+                int CheckIn = Integer.parseInt(binding.etCheckIn.getText().toString());
+                int CheckOut = Integer.parseInt(binding.etCheckOut.getText().toString());
+                int CreatedDate = Integer.parseInt(binding.etCreatedDate.getText().toString());
 
                 boolean AddUpdate = true;
                 if (TextUtils.isEmpty(Nama)) {
@@ -47,23 +47,23 @@ public class UpdateActivity extends AppCompatActivity {
                     AddUpdate = false;
                     binding.etAlamat.setError("Alamat Harus Diisi !");
                 }
-                if (TextUtils.isEmpty(Number)) {
+                if (Number == 0 ) {
                     AddUpdate = false;
                     binding.etNumber.setError("No Telepon Harus Diisi !");
                 }
-                if (TextUtils.isEmpty(Info)) {
+                if (Info == 0) {
                     AddUpdate = false;
                     binding.etInfo.setError("No Kamar Harus Diisi !");
                 }
-                if (TextUtils.isEmpty(CheckIn)) {
+                if (CheckIn == 0) {
                     AddUpdate = false;
                     binding.etCheckIn.setError("Tanggal Harus Diisi!");
                 }
-                if (TextUtils.isEmpty(CheckOut)) {
+                if (CheckOut == 0) {
                     AddUpdate = false;
                     binding.etCheckOut.setError("Tanggal Harus Diisi !");
                 }
-                if (TextUtils.isEmpty(CreatedDate)) {
+                if (CreatedDate == 0) {
                     AddUpdate = false;
                     binding.etCreatedDate.setError("Tanggal Harus Diisi !");
                 }
@@ -76,7 +76,7 @@ public class UpdateActivity extends AppCompatActivity {
 
         });
     }
-    private void UpdateAdd(String UserId, String Nama, Integer Alamat, Integer Number, Integer Info, Integer CheckOut, Integer CheckIn, Integer CreatedDate) {
+    private void UpdateAdd(String UserId, String Nama, String Alamat, Integer Number, Integer Info, Integer CheckOut, Integer CheckIn, Integer CreatedDate) {
         binding.progressBar.setVisibility(View.VISIBLE);
         binding.progressBar.setVisibility(View.GONE);
     }
