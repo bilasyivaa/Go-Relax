@@ -23,10 +23,10 @@ public class AddUnggahActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String Nama = binding.etNama.getText().toString();
                 String Alamat = binding.etAlamat.getText().toString();
-                String Number = binding.etNumber.getText().to();
-                String Info = binding.etInfo.getText().to();
-                String checkin = binding.etCheckIn.getText().to();
-                String checkout = binding.etCheckOut.getText().to();
+                int Number = Integer.parseInt(binding.etNumber.getText().toString());
+                int Info = Integer.parseInt(binding.etInfo.getText().toString());
+                int checkin = Integer.parseInt(binding.etCheckOut.getText().toString());
+                int checkout = Integer.parseInt(binding.etCheckOut.getText().toString());
 
                 boolean bolehUnggah = true;
 
@@ -40,22 +40,22 @@ public class AddUnggahActivity extends AppCompatActivity {
                     binding.etAlamat.setError("Alamat Harus Diisi !");
                 }
 
-                if (TextUtils.isEmpty(Number)) {
+                if (Number == 0) {
                     bolehUnggah = false;
                     binding.etNumber.setError("No Telepon Harus Diisi !");
                 }
 
-                if (TextUtils.isEmpty(Info)) {
+                if (Info == 0) {
                     bolehUnggah = false;
                     binding.etInfo.setError("No Kamar Harus Diisi !");
                 }
 
-                if (TextUtils.isEmpty(checkin)) {
+                if (checkin == 0) {
                     bolehUnggah = false;
                     binding.etCheckIn.setError("Tanggal Harus Diisi !");
                 }
 
-                if (TextUtils.isEmpty(checkout)) {
+                if (checkout == 0) {
                     bolehUnggah = false;
                     binding.etCheckOut.setError("Tanggal Harus Diisi !");
                 }
@@ -63,39 +63,17 @@ public class AddUnggahActivity extends AppCompatActivity {
 
                 if (bolehUnggah) {
                     String userId = utilities.getValue(AddUnggahActivity.this, "xUserId");
-                    addUnggah(userId, Nama);
+                    addUnggah(userId, Nama, Alamat, Number, Info, checkin, checkout);
                 }
 
-                if (bolehUnggah) {
-                    String userId = utilities.getValue(AddUnggahActivity.this, "xUserId");
-                    addUnggah(userId, Alamat);
-                }
-                if (bolehUnggah) {
-                    String userId = utilities.getValue(AddUnggahActivity.this, "xUserId");
-                    addUnggah(userId, Number);
-                }
 
-                if (bolehUnggah) {
-                    String userId = utilities.getValue(AddUnggahActivity.this, "xUserId");
-                    addUnggah(userId, Info);
-                }
-
-                if (bolehUnggah) {
-                    String userId = utilities.getValue(AddUnggahActivity.this, "xUserId");
-                    addUnggah(userId, checkin);
-                }
-
-                if (bolehUnggah) {
-                    String userId = utilities.getValue(AddUnggahActivity.this, "xUserId");
-                    addUnggah(userId, checkout);
-                }
 
 
             }
         });
     }
 
-    private void addUnggah(String userId, String Nama) {
+    private void addUnggah(String userId, String Nama, String Alamat, Integer Number, Integer Info, Integer checkin, Integer checkout) {
         binding.progressBar.setVisibility(View.VISIBLE);
         // proses untuk mengunggah konten ....
         binding.progressBar.setVisibility(View.GONE);

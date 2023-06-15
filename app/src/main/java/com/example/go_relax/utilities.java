@@ -3,13 +3,31 @@ package com.example.go_relax;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.lifecycle.SavedStateViewModelFactory;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class utilities {
 
     public static final String PREFERENCE_FILE_KEY = utilities.class.getPackage().getName();
+    private static final  String  BASE_URL = "";
+    public static Retrofit retrofit;
+
+    public static Retrofit getRetrofit() {
+        if (retrofit == null) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+        return retrofit;
+    }
 
     public static void clearuser(Context context) {
         SharedPreferences sp = context.getSharedPreferences(PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
+        editor.putString("xUserId", null);
         editor.putString("xUsername", null);
         editor.apply();
     }
@@ -33,5 +51,6 @@ public class utilities {
         String xValue = sp.getString(xPref, null);
         return xValue != null;
     }
+
 }
 
