@@ -37,7 +37,6 @@ public class UnggahViewAdapter extends RecyclerView.Adapter<UnggahViewAdapter.Vi
         holder.itemUnggahBinding.tvInfo.setText(String.valueOf(unggah.getInfo()));
         holder.itemUnggahBinding.tvCheckIn.setText(String.valueOf(unggah.getCheck_in()));
         holder.itemUnggahBinding.tvCheckOut.setText(String.valueOf(unggah.getCheck_out()));
-        holder.itemUnggahBinding.tvCreatedDate.setText(String.valueOf(unggah.getCreated_date()));
     }
 
     @Override

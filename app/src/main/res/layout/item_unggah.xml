@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                tools:text="NAMA             :"/>
+                tools:text="NAMA"/>
 
             <TextView
                 android:id="@+id/tv_Alamat"
@@ -36,7 +36,7 @@
                 android:textStyle="bold"
                 android:layout_below="@+id/tv_Nama"
                 android:layout_marginTop="10dp"
-                tools:text="ALAMAT         :" />
+                tools:text="ALAMAT" />
 
             <TextView
                 android:id="@+id/tv_Number"
@@ -46,7 +46,7 @@
                 android:textStyle="bold"
                 android:layout_below="@+id/tv_Alamat"
                 android:layout_marginTop="10dp"
-                tools:text="NO TELEPON :" />
+                tools:text="NO TELEPON" />
 
             <TextView
                 android:id="@+id/tv_Info"
@@ -56,7 +56,7 @@
                 android:textStyle="bold"
                 android:layout_below="@+id/tv_Number"
                 android:layout_marginTop="10dp"
-                tools:text="NO KAMAR    :" />
+                tools:text="NO KAMAR" />
 
             <TextView
                 android:id="@+id/tv_check_in"
@@ -66,7 +66,7 @@
                 android:textStyle="bold"
                 android:layout_below="@+id/tv_Info"
                 android:layout_marginTop="10dp"
-                tools:text="CHECK IN      :" />
+                tools:text="CHECK IN" />
 
             <TextView
                 android:id="@+id/tv_check_out"
@@ -76,16 +76,7 @@
                 android:textStyle="bold"
                 android:layout_below="@+id/tv_check_in"
                 android:layout_marginTop="10dp"
-                tools:text="CHECK OUT  :" />
-
-            <TextView
-                android:id="@+id/tv_created_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_check_out"
-                android:layout_marginTop="5dp"
-                android:textAlignment="textEnd"
-                tools:text="10-06-2023 10:00:00"/>
+                tools:text="CHECK OUT" />
 
         </RelativeLayout>
 

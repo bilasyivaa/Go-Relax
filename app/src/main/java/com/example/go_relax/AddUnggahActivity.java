@@ -27,7 +27,6 @@ public class AddUnggahActivity extends AppCompatActivity {
                 String Info = binding.etInfo.getText().to();
                 String checkin = binding.etCheckIn.getText().to();
                 String checkout = binding.etCheckOut.getText().to();
-                String createddate = binding.etCreatedDate.getText().to();
 
                 boolean bolehUnggah = true;
 
@@ -61,10 +60,6 @@ public class AddUnggahActivity extends AppCompatActivity {
                     binding.etCheckOut.setError("Tanggal Harus Diisi !");
                 }
 
-                if (TextUtils.isEmpty(createddate)) {
-                    bolehUnggah = false;
-                    binding.etCreatedDate.setError("Tanggal Harus Diisi !");
-                }
 
                 if (bolehUnggah) {
                     String userId = utilities.getValue(AddUnggahActivity.this, "xUserId");
@@ -95,10 +90,7 @@ public class AddUnggahActivity extends AppCompatActivity {
                     addUnggah(userId, checkout);
                 }
 
-                if (bolehUnggah) {
-                    String userId = utilities.getValue(AddUnggahActivity.this, "xUserId");
-                    addUnggah(userId, createddate);
-                }
+
             }
         });
     }

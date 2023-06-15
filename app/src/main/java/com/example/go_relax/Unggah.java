@@ -9,7 +9,7 @@ public class Unggah {
     private Integer Info;
     private Integer check_in;
     private Integer check_out;
-    private Integer created_date;
+
 
     public String getId() {
         return Id;
@@ -67,12 +67,6 @@ public class Unggah {
         this.check_out = check_out;
     }
 
-    public Integer getCreated_date() {
-        return created_date;
-    }
 
-    public void setCreated_date(Integer created_date) {
-        this.created_date = created_date;
-    }
 }
 
