@@ -10,15 +10,21 @@ public class User implements Parcelable {
     private String id;
     private String username;
 
-    public User(String id, String username) {
-        this.id = id;
-        this.username = username;
+    public User(){
     }
 
     protected User(Parcel in) {
         id = in.readString();
         username = in.readString();
     }
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(username);
+    }
+
+    @Override
+    public int describeContents() {return 0;}
 
     public static final Creator<User> CREATOR = new Creator<User>() {
         @Override
@@ -46,16 +52,5 @@ public class User implements Parcelable {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(username);
     }
 }
