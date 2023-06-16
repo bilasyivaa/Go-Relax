@@ -46,6 +46,7 @@ public class UnggahViewAdapter extends RecyclerView.Adapter<UnggahViewAdapter.Vi
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+                onItemLongClickListener.onItemLongClick(v, unggah, pos);
                 return false;
             }
         });

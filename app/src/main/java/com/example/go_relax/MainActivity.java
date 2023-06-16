@@ -71,6 +71,12 @@ public class MainActivity extends AppCompatActivity {
                                     deleteUnggah(id);
                                 }
                             });
+                            builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    deleteUnggah(id);
+                                }
+                            });
                             AlertDialog alertDialog = builder.create();
                             alertDialog.show();
                             return true;
@@ -94,6 +100,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void deleteUnggah(String id) {
+        APIService api = utilities.getRetrofit().create(APIService.class);
+        Call<ValueData> call = api.deleteUnggah(id);
+        call.enqueue(new Callback<ValueData>() {
+            @Override
+            public void onResponse(Call<ValueData> call, Response<ValueData> response) {
+                if (response.code() == 200) {
+                    int success =response.body().getSuccess();
+                    String message = response.body().getMessage();
+
+                    if (success == 1) {
+                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                        getAllUnggah();
+                    } else  {
+                        Toast.makeText(MainActivity.this, message,Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, "Response " + response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ValueData> call, Throwable t) {
+                System.out.println("Retrofit Error : " + t.getMessage());
+                Toast.makeText(MainActivity.this, "Retrofit Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
         };
 
@@ -105,6 +138,46 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getAllUnggah() {
+        binding.progressBar.setVisibility(View.VISIBLE);
+        APIService api = utilities.getRetrofit().create(APIService.class);
+        Call<ValueData<List<Unggah>>> call = api.getGoRelax();
+        call.enqueue(new Callback<ValueData<List<Unggah>>>() {
+            @Override
+            public void onResponse(Call<ValueData<List<Unggah>>> call, Response<ValueData<List<Unggah>>> response) {
+                binding.progressBar.setVisibility(View.GONE);
+                if (response.code() == 200) {
+                    int success = response.body().getSuccess();
+                    String message = response.body().getMessage();
+
+                    if (success == 1) {
+                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                        data = response.body().getData();
+                        unggahViewAdapter.setData(data);
+                    } else {
+                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, "Response" + response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ValueData<List<Unggah>>> call, Throwable t) {
+                binding.progressBar.setVisibility(View.GONE);
+            }
+
+            public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.action_logout) {
+                    utilities.clearuser(this);
+                    Intent intent=new Intent(this,LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                }
+                return MainActivity.super.onOptionsItemSelected(item);
+            }
+        });
 
     }
 

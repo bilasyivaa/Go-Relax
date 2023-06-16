@@ -49,9 +49,7 @@ public interface APIService {
 
     @DELETE("GoRelax/{id}")
     Call<ValueData> deleteUnggah(@Path("id") String id);
-
-
-
-
+    Call<ValueData> addGoRelax(String userId, String Nama, String Alamat, int Number, int Info, int
+                               CheckIn, int CheckOut);
 
 }

@@ -100,7 +100,7 @@ public class AddUnggahActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ValueData> call, Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
-                System.out.println("Retrofi Error :" + t.getMessage());
+                System.out.println("Retrofit Error :" + t.getMessage());
                 Toast.makeText(AddUnggahActivity.this, "Retrofit Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
