@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (success == 1) {
                             User user = response.body().getData();
                             Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
-                            utilities.setValue(LoginActivity.this, "xUserId", User.getId);
+                            utilities.setValue(LoginActivity.this, "xUserId", user.getId());
                             utilities.setValue(LoginActivity.this, "xUsername", username);
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
 
-            }
-
         }
+
+    }
 

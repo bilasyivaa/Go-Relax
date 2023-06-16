@@ -39,7 +39,7 @@ public class Unggah implements Parcelable{
     @Override
     public  int describeContents() {return  0;}
 
-    public static  final Parcelable.Creator<Unggah> CREATOR = new  Parcelable.Creator<Unggah>() {
+    public static  final Creator<Unggah> CREATOR = new  Creator<Unggah>() {
         @Override
         public  Unggah createFromParcel(Parcel in) { return new Unggah(in);}
         @Override

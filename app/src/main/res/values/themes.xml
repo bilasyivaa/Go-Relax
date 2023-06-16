@@ -5,5 +5,11 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
+    <style name="Base.Theme.GoRelax.ActionBar" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
     <style name="Theme.GoRelax" parent="Base.Theme.GoRelax" />
+    <style name="Theme.GoRelax.ActionBar" parent="Base.Theme.GoRelax.ActionBar"/>
 </resources>

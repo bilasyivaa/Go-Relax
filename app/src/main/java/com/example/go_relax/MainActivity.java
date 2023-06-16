@@ -44,13 +44,13 @@ public class MainActivity extends AppCompatActivity {
         unggahViewAdapter = new UnggahViewAdapter();
         binding.rvUnggah.setLayoutManager(new LinearLayoutManager(this));
         binding.rvUnggah.setAdapter(unggahViewAdapter);
-        UnggahViewAdapter.setOnItemLongClickListener(new UnggahViewAdapter.OnItemLongClickListener() {
+
+        unggahViewAdapter.setOnItemLongClickListener(new UnggahViewAdapter.OnItemLongClickListener() {
             @Override
             public void onItemLongClick(View v, Unggah unggah, int position) {
                 PopupMenu popupMenu = new PopupMenu(MainActivity.this, v);
                 popupMenu.inflate(R.menu.menu_popup);
                 popupMenu.setGravity(Gravity.RIGHT);
-
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -71,10 +71,10 @@ public class MainActivity extends AppCompatActivity {
                                     deleteUnggah(id);
                                 }
                             });
-                            builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+                            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    deleteUnggah(id);
+                                    dialog.cancel();
                                 }
                             });
                             AlertDialog alertDialog = builder.create();
@@ -101,40 +101,39 @@ public class MainActivity extends AppCompatActivity {
 
     private void deleteUnggah(String id) {
         APIService api = utilities.getRetrofit().create(APIService.class);
-        Call<ValueData> call = api.deleteUnggah(id);
-        call.enqueue(new Callback<ValueData>() {
+        Call<ValueNoData> call = api.deleteUnggah(id);
+        call.enqueue(new Callback<ValueNoData>() {
             @Override
-            public void onResponse(Call<ValueData> call, Response<ValueData> response) {
-                if (response.code() == 200) {
-                    int success =response.body().getSuccess();
+            public void onResponse(Call<ValueNoData> call, Response<ValueNoData> response) {
+                if (response.code() == 200 ) {
+                    int success = response.body().getSuccess();
                     String message = response.body().getMessage();
 
                     if (success == 1) {
                         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
                         getAllUnggah();
-                    } else  {
-                        Toast.makeText(MainActivity.this, message,Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(MainActivity.this, "Response " + response.code(), Toast.LENGTH_SHORT).show();
                 }
+
             }
 
             @Override
-            public void onFailure(Call<ValueData> call, Throwable t) {
+            public void onFailure(Call<ValueNoData> call, Throwable t) {
                 System.out.println("Retrofit Error : " + t.getMessage());
-                Toast.makeText(MainActivity.this, "Retrofit Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Retrofit Error " + t.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
-
-        };
-
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
-            getAllUnggah();
+        getAllUnggah();
     }
 
     private void getAllUnggah() {
@@ -154,35 +153,34 @@ public class MainActivity extends AppCompatActivity {
                         data = response.body().getData();
                         unggahViewAdapter.setData(data);
                     } else {
-                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, message,Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Toast.makeText(MainActivity.this, "Response" + response.code(), Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(MainActivity.this, "Response " + response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ValueData<List<Unggah>>> call, Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
-            }
+                System.out.println("Retrofit Error : " + t.getMessage());
+                Toast.makeText(MainActivity.this, "Retrofit Error : " +t.getMessage(),Toast.LENGTH_SHORT).show();
 
-            public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.action_logout) {
-                    utilities.clearuser(this);
-                    Intent intent=new Intent(this,LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                    return true;
-                }
-                return MainActivity.super.onOptionsItemSelected(item);
             }
         });
+        binding.progressBar.setVisibility(View.GONE);
 
     }
 
-
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_logout) {
+            utilities.clearuser(this);
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
-
-
-

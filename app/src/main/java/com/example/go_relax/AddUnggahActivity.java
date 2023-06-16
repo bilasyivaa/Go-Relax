@@ -77,10 +77,10 @@ public class AddUnggahActivity extends AppCompatActivity {
     private void addUnggah(String Id, String Nama, String Alamat, int Number, int Info, int checkin, int checkout) {
         binding.progressBar.setVisibility(View.VISIBLE);
         APIService api = utilities.getRetrofit().create(APIService.class);
-        Call<ValueData> call = api.addGoRelax(Id,Nama,Alamat,Number,Info,checkin,checkout);
-        call.enqueue(new Callback<ValueData>() {
+        Call<ValueNoData> call = api.getGoRelax(Id, Nama, Alamat, Number, Info, checkin, checkout);
+        call.enqueue(new Callback<ValueNoData>() {
             @Override
-            public void onResponse(Call<ValueData> call, Response<ValueData> response) {
+            public void onResponse(Call<ValueNoData> call, Response<ValueNoData> response) {
                 binding.progressBar.setVisibility(View.GONE);
                 if (response.code() == 200) {
                     int success = response.body().getSuccess();
@@ -89,24 +89,24 @@ public class AddUnggahActivity extends AppCompatActivity {
                     if (success == 1) {
                         Toast.makeText(AddUnggahActivity.this, message, Toast.LENGTH_SHORT).show();
                         finish();
-                    } else  {
+                    } else {
                         Toast.makeText(AddUnggahActivity.this, message, Toast.LENGTH_SHORT).show();
                     }
-                } else  {
-                    Toast.makeText(AddUnggahActivity.this, "Response" + response.code(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(AddUnggahActivity.this, "Response " + response.code(), Toast.LENGTH_SHORT);
                 }
             }
 
             @Override
-            public void onFailure(Call<ValueData> call, Throwable t) {
+            public void onFailure(Call<ValueNoData> call, Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
-                System.out.println("Retrofit Error :" + t.getMessage());
+                System.out.println("Retrofit Error : " + t.getMessage());
                 Toast.makeText(AddUnggahActivity.this, "Retrofit Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
-
     }
+
 
     @Override
     public void onBackPressed() {

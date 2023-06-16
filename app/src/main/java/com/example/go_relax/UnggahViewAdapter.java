@@ -22,7 +22,7 @@ public class UnggahViewAdapter extends RecyclerView.Adapter<UnggahViewAdapter.Vi
         notifyDataSetChanged();
     }
 
-    public static void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
         this.onItemLongClickListener = onItemLongClickListener;
     }
 
