@@ -1,6 +1,9 @@
 package com.example.go_relax;
 
-public class Unggah {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Unggah implements Parcelable{
     private String Id;
 
     private String Nama;
@@ -9,6 +12,39 @@ public class Unggah {
     private Integer Info;
     private Integer check_in;
     private Integer check_out;
+
+    protected Unggah(Parcel in) {
+        Id = in.readString();
+        Nama = in.readString();
+        Alamat = in.readString();
+        Number = in.readInt();
+        Info = in.readInt();
+        check_in = in.readInt();
+        check_out = in.readInt();
+    }
+
+    @Override
+    public void  writeToParcel(Parcel dest, int flags) {
+        dest.writeString(Id);
+        dest.writeString(Nama);
+        dest.writeString(Alamat);
+        dest.writeInt(Number);
+        dest.writeInt(Info);
+        dest.writeInt(check_in);
+        dest.writeInt(check_out);
+
+    }
+
+
+    @Override
+    public  int describeContents() {return  0;}
+
+    public static  final Parcelable.Creator<Unggah> CREATOR = new  Parcelable.Creator<Unggah>() {
+        @Override
+        public  Unggah createFromParcel(Parcel in) { return new Unggah(in);}
+        @Override
+        public Unggah[] newArray(int size) {return  new Unggah[size];}
+    };
 
 
     public String getId() {

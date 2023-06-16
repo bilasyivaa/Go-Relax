@@ -5,8 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.go_relax.databinding.ActivityAddUnggahBinding;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AddUnggahActivity extends AppCompatActivity {
 
@@ -60,23 +65,47 @@ public class AddUnggahActivity extends AppCompatActivity {
                     binding.etCheckOut.setError("Tanggal Harus Diisi !");
                 }
 
-
                 if (bolehUnggah) {
                     String userId = utilities.getValue(AddUnggahActivity.this, "xUserId");
                     addUnggah(userId, Nama, Alamat, Number, Info, checkin, checkout);
                 }
 
-
-
-
             }
         });
     }
 
-    private void addUnggah(String userId, String Nama, String Alamat, Integer Number, Integer Info, Integer checkin, Integer checkout) {
+    private void addUnggah(String Id, String Nama, String Alamat, int Number, int Info, int checkin, int checkout) {
         binding.progressBar.setVisibility(View.VISIBLE);
-        // proses untuk mengunggah konten ....
-        binding.progressBar.setVisibility(View.GONE);
+        APIService api = utilities.getRetrofit().create(APIService.class);
+        Call<ValueData> call = api.addGoRelax(Id,Nama,Alamat,Number,Info,checkin,checkout);
+        call.enqueue(new Callback<ValueData>() {
+            @Override
+            public void onResponse(Call<ValueData> call, Response<ValueData> response) {
+                binding.progressBar.setVisibility(View.GONE);
+                if (response.code() == 200) {
+                    int success = response.body().getSuccess();
+                    String message = response.body().getMessage();
+
+                    if (success == 1) {
+                        Toast.makeText(AddUnggahActivity.this, message, Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else  {
+                        Toast.makeText(AddUnggahActivity.this, message, Toast.LENGTH_SHORT).show();
+                    }
+                } else  {
+                    Toast.makeText(AddUnggahActivity.this, "Response" + response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ValueData> call, Throwable t) {
+                binding.progressBar.setVisibility(View.GONE);
+                System.out.println("Retrofi Error :" + t.getMessage());
+                Toast.makeText(AddUnggahActivity.this, "Retrofit Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 
     @Override

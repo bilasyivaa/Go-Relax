@@ -3,27 +3,21 @@ package com.example.go_relax;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 public class User implements Parcelable {
+
     private String id;
     private String username;
 
-    public User() {
+    public User(String id, String username) {
+        this.id = id;
+        this.username = username;
     }
 
     protected User(Parcel in) {
         id = in.readString();
         username = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(username);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -54,4 +48,14 @@ public class User implements Parcelable {
         this.username = username;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(username);
+    }
 }
