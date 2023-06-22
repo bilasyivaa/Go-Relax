@@ -16,19 +16,19 @@ public interface APIService {
     @POST("auth/login")
     Call<ValueData<User>> login(@Field("username") String username,
                                 @Field("password") String password);
+
     @FormUrlEncoded
     @POST("auth/register")
     Call<ValueData<User>> register(@Field("username") String username,
-                                @Field("password") String password);
-
+                                   @Field("password") String password);
 
 
     @FormUrlEncoded
-    @GET("GoRelax")
+    @GET("addGoRelax")
     Call<ValueData<List<Unggah>>> getGoRelax();
 
     @FormUrlEncoded
-    @POST("GoRelax")
+    @POST("addGoRelax")
     Call<ValueNoData> addGoRelax(@Field("Nama") String Nama,
                                  @Field("Alamat") String Alamat,
                                  @Field("Number") String Number,
@@ -38,17 +38,17 @@ public interface APIService {
                                  @Field("User_id") Integer User_id);
 
     @FormUrlEncoded
-    @PUT("GoRelax")
-    Call<ValueNoData> updateUnggah(@Field("Nama") String Nama,
-                                 @Field("Alamat") String Alamat,
-                                 @Field("Number") String Number,
-                                 @Field("Info") Integer Info,
-                                 @Field("CheckIn") Integer CheckIn,
-                                 @Field("CheckOut") Integer CheckOut,
-                                 @Field("User_id") int User_id);
+    @PUT("addGoRelax")
+    Call<ValueNoData> updateUnggah(@Field("id") String id,
+                                   @Field("Nama") String Nama,
+                                   @Field("Alamat") String Alamat,
+                                   @Field("Number") String Number,
+                                   @Field("Info") Integer Info,
+                                   @Field("CheckIn") Integer CheckIn,
+                                   @Field("CheckOut") Integer CheckOut);
 
-    @DELETE("GoRelax/{id}")
+
+    @DELETE("addGoRelax/{id}")
     Call<ValueNoData> deleteUnggah(@Path("id") String id);
 
-    Call<ValueNoData> getGoRelax(String id, String nama, String alamat, int number, int info, int checkin, int checkout);
 }

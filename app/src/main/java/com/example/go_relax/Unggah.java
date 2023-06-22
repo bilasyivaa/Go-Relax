@@ -12,6 +12,7 @@ public class Unggah implements Parcelable{
     private Integer Info;
     private Integer check_in;
     private Integer check_out;
+    private String user_id;
 
     protected Unggah(Parcel in) {
         Id = in.readString();
@@ -21,6 +22,7 @@ public class Unggah implements Parcelable{
         Info = in.readInt();
         check_in = in.readInt();
         check_out = in.readInt();
+        user_id = in.readString();
     }
 
     @Override
@@ -32,9 +34,17 @@ public class Unggah implements Parcelable{
         dest.writeInt(Info);
         dest.writeInt(check_in);
         dest.writeInt(check_out);
+        dest.writeString(user_id);
 
     }
 
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
 
     @Override
     public  int describeContents() {return  0;}

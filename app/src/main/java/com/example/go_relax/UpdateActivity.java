@@ -78,7 +78,7 @@ public class UpdateActivity extends AppCompatActivity {
     private void UpdateAdd(String UserId, String Nama, String Alamat, int Number, int Info, int CheckIn, int CheckOut) {
         binding.progressBar.setVisibility(View.VISIBLE);
         APIService api = utilities.getRetrofit().create(APIService.class);
-        Call<ValueNoData> call = api.updateUnggah(UserId, Nama, Alamat, Number, Info, CheckIn, CheckOut);
+        Call<ValueNoData> call = api.updateUnggah(UserId, Nama, Alamat, String.valueOf(Number), Info, CheckIn, CheckOut);
         call.enqueue(new Callback<ValueNoData>() {
             @Override
             public void onResponse(Call<ValueNoData> call, Response<ValueNoData> response) {
