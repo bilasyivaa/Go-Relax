@@ -33,7 +33,8 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".SplashActivity"
-            android:exported="false"
+            android:exported="true"
+            android:theme="@style/Theme.GoRelax.ActionBar"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".LoginActivity"
