@@ -27,10 +27,10 @@ public class UpdateActivity extends AppCompatActivity {
         String Id = unggah.getId();
         binding.etNama.setText(unggah.getNama());
         binding.etAlamat.setText(unggah.getAlamat());
-        binding.etNumber.setText(unggah.getNumber());
-        binding.etInfo.setText(unggah.getInfo());
-        binding.etCheckIn.setText(unggah.getCheck_in());
-        binding.etCheckOut.setText(unggah.getCheck_out());
+        binding.etNumber.setText(String.valueOf(unggah.getNumber()));
+        binding.etInfo.setText(String.valueOf(unggah.getInfo()));
+        binding.etCheckIn.setText(String.valueOf(unggah.getCheck_in()));
+        binding.etCheckOut.setText(String.valueOf(unggah.getCheck_out()));
         binding.btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

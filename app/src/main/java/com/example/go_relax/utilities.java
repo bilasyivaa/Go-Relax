@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class utilities {
 
     public static final String PREFERENCE_FILE_KEY = utilities.class.getPackage().getName();
-    private static final  String  BASE_URL = "";
+    private static final  String  BASE_URL = "https://go-relax-rest-a-pi.vercel.app/";
     public static Retrofit retrofit;
 
     public static Retrofit getRetrofit() {

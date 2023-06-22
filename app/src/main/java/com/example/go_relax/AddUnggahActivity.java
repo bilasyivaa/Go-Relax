@@ -74,10 +74,10 @@ public class AddUnggahActivity extends AppCompatActivity {
         });
     }
 
-    private void addUnggah(String Id, String Nama, String Alamat, int Number, int Info, int checkin, int checkout) {
+    private void addUnggah(String user_Id, String Nama, String Alamat, int Number, int Info, int checkin, int checkout) {
         binding.progressBar.setVisibility(View.VISIBLE);
         APIService api = utilities.getRetrofit().create(APIService.class);
-        Call<ValueNoData> call = api.getGoRelax(Id, Nama, Alamat, Number, Info, checkin, checkout);
+        Call<ValueNoData> call = api.addGoRelax(user_Id, Nama, Alamat, Number, Info, checkin, checkout);
         call.enqueue(new Callback<ValueNoData>() {
             @Override
             public void onResponse(Call<ValueNoData> call, Response<ValueNoData> response) {
