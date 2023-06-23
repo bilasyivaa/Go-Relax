@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,84 +17,86 @@ import retrofit2.Response;
 public class AddUnggahActivity extends AppCompatActivity {
 
     private ActivityAddUnggahBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityAddUnggahBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Nama = binding.etNama.getText().toString();
-                String Alamat = binding.etAlamat.getText().toString();
-                int Number = Integer.parseInt(binding.etNumber.getText().toString());
-                int Info = Integer.parseInt(binding.etInfo.getText().toString());
-                int checkin = Integer.parseInt(binding.etCheckOut.getText().toString());
-                int checkout = Integer.parseInt(binding.etCheckOut.getText().toString());
+                String nama = binding.etNama.getText().toString();
+                String alamat = binding.etAlamat.getText().toString();
+                String number = binding.etNumber.getText().toString();
+                String info = binding.etInfo.getText().toString();
+                String checkin = binding.etCheckIn.getText().toString();
+                String checkout = binding.etCheckOut.getText().toString();
 
                 boolean bolehUnggah = true;
 
-                if (TextUtils.isEmpty(Nama)) {
+                if (TextUtils.isEmpty(nama)) {
                     bolehUnggah = false;
                     binding.etNama.setError("Nama Harus Diisi !");
                 }
 
-                if (TextUtils.isEmpty(Alamat)) {
+                if (TextUtils.isEmpty(alamat)) {
                     bolehUnggah = false;
                     binding.etAlamat.setError("Alamat Harus Diisi !");
                 }
 
-                if (Number == 0) {
+                if (TextUtils.isEmpty(number)) {
                     bolehUnggah = false;
                     binding.etNumber.setError("No Telepon Harus Diisi !");
                 }
 
-                if (Info == 0) {
+                if (TextUtils.isEmpty(info)) {
                     bolehUnggah = false;
                     binding.etInfo.setError("No Kamar Harus Diisi !");
                 }
 
-                if (checkin == 0) {
+                if (TextUtils.isEmpty(checkin)) {
                     bolehUnggah = false;
                     binding.etCheckIn.setError("Tanggal Harus Diisi !");
                 }
 
-                if (checkout == 0) {
+                if (TextUtils.isEmpty(checkout)) {
                     bolehUnggah = false;
                     binding.etCheckOut.setError("Tanggal Harus Diisi !");
                 }
 
                 if (bolehUnggah) {
                     String userId = utilities.getValue(AddUnggahActivity.this, "xUserId");
-                    addUnggah(userId, Nama, Alamat, Number, Info, checkin, checkout);
+                    addUnggah(userId,nama, alamat, number, info, checkin, checkout);
                 }
-
             }
         });
     }
 
-    private void addUnggah(String user_Id, String Nama, String Alamat, int Number, int Info, int checkin, int checkout) {
+    private void addUnggah(String User_id, String nama, String alamat, String number, String info, String checkin, String checkout) {
         binding.progressBar.setVisibility(View.VISIBLE);
         APIService api = utilities.getRetrofit().create(APIService.class);
-        Call<ValueNoData> call = api.addGoRelax(user_Id, Nama, Alamat, Number, Info, checkin, checkout);
+        Call<ValueNoData> call = api.addGoRelax(User_id,nama, alamat, number, info, checkin, checkout);
         call.enqueue(new Callback<ValueNoData>() {
             @Override
             public void onResponse(Call<ValueNoData> call, Response<ValueNoData> response) {
                 binding.progressBar.setVisibility(View.GONE);
-                if (response.code() == 200) {
-                    int success = response.body().getSuccess();
-                    String message = response.body().getMessage();
+                if (response.isSuccessful()) {
+                    ValueNoData value = response.body();
+                    if (value != null) {
+                        int success = value.getSuccess();
+                        String message = value.getMessage();
 
-                    if (success == 1) {
-                        Toast.makeText(AddUnggahActivity.this, message, Toast.LENGTH_SHORT).show();
-                        finish();
-                    } else {
-                        Toast.makeText(AddUnggahActivity.this, message, Toast.LENGTH_SHORT).show();
+                        if (success == 1) {
+                            Toast.makeText(AddUnggahActivity.this, message, Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Toast.makeText(AddUnggahActivity.this, message, Toast.LENGTH_SHORT).show();
+                        }
                     }
                 } else {
-                    Toast.makeText(AddUnggahActivity.this, "Response " + response.code(), Toast.LENGTH_SHORT);
+                    Toast.makeText(AddUnggahActivity.this, "Response " + response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -104,9 +107,7 @@ public class AddUnggahActivity extends AppCompatActivity {
                 Toast.makeText(AddUnggahActivity.this, "Retrofit Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
-
 
     @Override
     public void onBackPressed() {
@@ -120,4 +121,5 @@ public class AddUnggahActivity extends AppCompatActivity {
         return true;
     }
 }
+
 

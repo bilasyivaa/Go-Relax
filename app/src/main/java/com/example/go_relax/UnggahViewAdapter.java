@@ -17,7 +17,7 @@ public class UnggahViewAdapter extends RecyclerView.Adapter<UnggahViewAdapter.Vi
     private List<Unggah> data = new ArrayList<>();
     private OnItemLongClickListener onItemLongClickListener;
 
-    public void setData (List<Unggah>data) {
+    public void setData(List<Unggah> data) {
         this.data = data;
         notifyDataSetChanged();
     }
@@ -26,31 +26,28 @@ public class UnggahViewAdapter extends RecyclerView.Adapter<UnggahViewAdapter.Vi
         this.onItemLongClickListener = onItemLongClickListener;
     }
 
-
     @NonNull
     @Override
-    public UnggahViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(ItemUnggahBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false));
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemUnggahBinding binding = ItemUnggahBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UnggahViewAdapter.ViewHolder holder, int position) {
-        int pos = holder.getAdapterPosition();
-        Unggah unggah = data.get(pos);
-        holder.itemUnggahBinding.tvNama.setText(unggah.getNama());
-        holder.itemUnggahBinding.tvAlamat.setText(unggah.getAlamat());
-        holder.itemUnggahBinding.tvNumber.setText(String.valueOf(unggah.getNumber()));
-        holder.itemUnggahBinding.tvInfo.setText(String.valueOf(unggah.getInfo()));
-        holder.itemUnggahBinding.tvCheckIn.setText(String.valueOf(unggah.getCheck_in()));
-        holder.itemUnggahBinding.tvCheckOut.setText(String.valueOf(unggah.getCheck_out()));
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Unggah unggah = data.get(position);
+        holder.bind(unggah);
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                onItemLongClickListener.onItemLongClick(v, unggah, pos);
+                int adapterPosition = holder.getAdapterPosition();
+                if (adapterPosition != RecyclerView.NO_POSITION && onItemLongClickListener != null) {
+                    onItemLongClickListener.onItemLongClick(v, unggah, adapterPosition);
+                    return true;
+                }
                 return false;
             }
         });
-
     }
 
     @Override
@@ -59,10 +56,20 @@ public class UnggahViewAdapter extends RecyclerView.Adapter<UnggahViewAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private ItemUnggahBinding itemUnggahBinding;
-        public ViewHolder(@NonNull ItemUnggahBinding itemView) {
-            super(itemView.getRoot());
-            itemUnggahBinding = itemView;
+        private ItemUnggahBinding binding;
+
+        public ViewHolder(@NonNull ItemUnggahBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+
+        public void bind(Unggah unggah) {
+            binding.tvNama.setText(unggah.getNama());
+            binding.tvAlamat.setText(unggah.getAlamat());
+            binding.tvNumber.setText(unggah.getNumber());
+            binding.tvInfo.setText(unggah.getInfo());
+            binding.tvCheckIn.setText(unggah.getCheckIn());
+            binding.tvCheckOut.setText(unggah.getCheckOut());
         }
     }
 
@@ -70,6 +77,11 @@ public class UnggahViewAdapter extends RecyclerView.Adapter<UnggahViewAdapter.Vi
         void onItemLongClick(View v, Unggah unggah, int position);
     }
 }
+
+
+
+
+
 
 
 

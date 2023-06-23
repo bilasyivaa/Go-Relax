@@ -27,19 +27,19 @@ public class UpdateActivity extends AppCompatActivity {
         String Id = unggah.getId();
         binding.etNama.setText(unggah.getNama());
         binding.etAlamat.setText(unggah.getAlamat());
-        binding.etNumber.setText(String.valueOf(unggah.getNumber()));
-        binding.etInfo.setText(String.valueOf(unggah.getInfo()));
-        binding.etCheckIn.setText(String.valueOf(unggah.getCheck_in()));
-        binding.etCheckOut.setText(String.valueOf(unggah.getCheck_out()));
+        binding.etNumber.setText(unggah.getNumber());
+        binding.etInfo.setText(unggah.getInfo());
+        binding.etCheckIn.setText(unggah.getCheckIn());
+        binding.etCheckOut.setText(unggah.getCheckOut());
         binding.btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String Nama = binding.etNama.getText().toString();
                 String Alamat = binding.etAlamat.getText().toString();
-                int Number = Integer.parseInt(binding.etNumber.getText().toString());
-                int Info = Integer.parseInt(binding.etInfo.getText().toString());
-                int CheckIn = Integer.parseInt(binding.etCheckIn.getText().toString());
-                int CheckOut = Integer.parseInt(binding.etCheckOut.getText().toString());
+                String Number = binding.etNumber.getText().toString();
+                String Info = binding.etInfo.getText().toString();
+                String CheckIn = binding.etCheckIn.getText().toString();
+                String CheckOut = binding.etCheckOut.getText().toString();
 
                 boolean AddUpdate = true;
                 if (TextUtils.isEmpty(Nama)) {
@@ -50,64 +50,56 @@ public class UpdateActivity extends AppCompatActivity {
                     AddUpdate = false;
                     binding.etAlamat.setError("Alamat Harus Diisi !");
                 }
-                if (Number == 0 ) {
+                if (TextUtils.isEmpty(Number)) {
                     AddUpdate = false;
                     binding.etNumber.setError("No Telepon Harus Diisi !");
                 }
-                if (Info == 0) {
+                if (TextUtils.isEmpty(Info)) {
                     AddUpdate = false;
                     binding.etInfo.setError("No Kamar Harus Diisi !");
                 }
-                if (CheckIn == 0) {
+                if (TextUtils.isEmpty(CheckIn)) {
                     AddUpdate = false;
                     binding.etCheckIn.setError("Tanggal Harus Diisi!");
                 }
-                if (CheckOut == 0) {
+                if (TextUtils.isEmpty(CheckOut)) {
                     AddUpdate = false;
                     binding.etCheckOut.setError("Tanggal Harus Diisi !");
                 }
                 if (AddUpdate) {
-                    UpdateAdd(Id, Nama, Alamat, Number, Info, CheckIn, CheckOut);
+                    UpdateAdd("6495633089f9ba5b8fc17239", Nama, Alamat, Number, Info, CheckIn, CheckOut);
                 }
-
             }
-
-
         });
     }
-    private void UpdateAdd(String UserId, String Nama, String Alamat, int Number, int Info, int CheckIn, int CheckOut) {
+
+    private void UpdateAdd(String id, String Nama, String Alamat, String Number, String Info, String CheckIn, String CheckOut) {
         binding.progressBar.setVisibility(View.VISIBLE);
         APIService api = utilities.getRetrofit().create(APIService.class);
-        Call<ValueNoData> call = api.updateUnggah(UserId, Nama, Alamat, String.valueOf(Number), Info, CheckIn, CheckOut);
+        Call<ValueNoData> call = api.updateUnggah(id, Nama, Alamat, Number, Info, CheckIn, CheckOut);
         call.enqueue(new Callback<ValueNoData>() {
             @Override
             public void onResponse(Call<ValueNoData> call, Response<ValueNoData> response) {
                 binding.progressBar.setVisibility(View.GONE);
-                if (response.code() == 200) {
-                    int success = response.body().getSuccess();
-                    String message = response.body().getMessage();
-
-                    if (success == 1) {
-                        Toast.makeText(UpdateActivity.this, message, Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful()) {
+                    ValueNoData valueNoData = response.body();
+                    if (valueNoData != null && valueNoData.getSuccess() == 1) {
+                        Toast.makeText(UpdateActivity.this, valueNoData.getMessage(), Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
-                        Toast.makeText(UpdateActivity.this, message, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UpdateActivity.this, "Update failed", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(UpdateActivity.this, "Response" + response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateActivity.this, "Response code: " + response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ValueNoData> call, Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
-                System.out.println("Retrofit Error : " + t.getMessage());
-                Toast.makeText(UpdateActivity.this, " Retrofit Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(UpdateActivity.this, "Retrofit Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-        binding.progressBar.setVisibility(View.GONE);
-
     }
 
     @Override
@@ -122,3 +114,4 @@ public class UpdateActivity extends AppCompatActivity {
         return true;
     }
 }
+

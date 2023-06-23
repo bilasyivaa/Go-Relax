@@ -8,20 +8,22 @@ public class Unggah implements Parcelable{
 
     private String Nama;
     private String Alamat;
-    private Integer Number;
-    private Integer Info;
-    private Integer check_in;
-    private Integer check_out;
+    private String Number;
+    private String Info;
+
+    private String CheckIn;
+    private String CheckOut;
+
     private String user_id;
 
     protected Unggah(Parcel in) {
         Id = in.readString();
         Nama = in.readString();
         Alamat = in.readString();
-        Number = in.readInt();
-        Info = in.readInt();
-        check_in = in.readInt();
-        check_out = in.readInt();
+        Number = in.readString();
+        Info = in.readString();
+        CheckIn = in.readString();
+        CheckOut = in.readString();
         user_id = in.readString();
     }
 
@@ -30,10 +32,10 @@ public class Unggah implements Parcelable{
         dest.writeString(Id);
         dest.writeString(Nama);
         dest.writeString(Alamat);
-        dest.writeInt(Number);
-        dest.writeInt(Info);
-        dest.writeInt(check_in);
-        dest.writeInt(check_out);
+        dest.writeString(Number);
+        dest.writeString(Info);
+        dest.writeString(CheckIn);
+        dest.writeString(CheckOut);
         dest.writeString(user_id);
 
     }
@@ -61,8 +63,8 @@ public class Unggah implements Parcelable{
         return Id;
     }
 
-    public void setId(String Id) {
-        Id = Id;
+    public void setId(String id) {
+        Id = id;
     }
 
     public String getNama() {
@@ -81,38 +83,37 @@ public class Unggah implements Parcelable{
         Alamat = alamat;
     }
 
-    public Integer getNumber() {
+    public String getNumber() {
         return Number;
     }
 
-    public void setNumber(Integer number) {
+    public void setNumber(String number) {
         Number = number;
     }
 
-    public Integer getInfo() {
+    public String getInfo() {
         return Info;
     }
 
-    public void setInfo(Integer info) {
+    public void setInfo(String info) {
         Info = info;
     }
 
-    public Integer getCheck_in() {
-        return check_in;
+
+    public String getCheckIn() {
+        return CheckIn;
     }
 
-    public void setCheck_in(Integer check_in) {
-        this.check_in = check_in;
+    public void setCheckIn(String checkIn) {
+        CheckIn = checkIn;
     }
 
-    public Integer getCheck_out() {
-        return check_out;
+    public String getCheckOut() {
+        return CheckOut;
     }
 
-    public void setCheck_out(Integer check_out) {
-        this.check_out = check_out;
+    public void setCheckOut(String checkOut) {
+        CheckOut = checkOut;
     }
-
-
 }
 

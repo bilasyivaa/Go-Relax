@@ -23,19 +23,20 @@ public interface APIService {
                                    @Field("password") String password);
 
 
-    @FormUrlEncoded
+
     @GET("addGoRelax")
     Call<ValueData<List<Unggah>>> getGoRelax();
 
     @FormUrlEncoded
     @POST("addGoRelax")
-    Call<ValueNoData> addGoRelax(@Field("Nama") String Nama,
+    Call<ValueNoData> addGoRelax(@Field("user_id") String User_id,
+                                 @Field("Nama") String Nama,
                                  @Field("Alamat") String Alamat,
                                  @Field("Number") String Number,
-                                 @Field("Info") Integer Info,
-                                 @Field("CheckIn") Integer CheckIn,
-                                 @Field("CheckOut") Integer CheckOut,
-                                 @Field("User_id") Integer User_id);
+                                 @Field("Info") String Info,
+                                 @Field("CheckIn") String CheckIn,
+                                 @Field("CheckOut") String CheckOut);
+
 
     @FormUrlEncoded
     @PUT("addGoRelax")
@@ -43,9 +44,9 @@ public interface APIService {
                                    @Field("Nama") String Nama,
                                    @Field("Alamat") String Alamat,
                                    @Field("Number") String Number,
-                                   @Field("Info") Integer Info,
-                                   @Field("CheckIn") Integer CheckIn,
-                                   @Field("CheckOut") Integer CheckOut);
+                                   @Field("Info") String Info,
+                                   @Field("CheckIn") String CheckIn,
+                                   @Field("CheckOut") String CheckOut);
 
 
     @DELETE("addGoRelax/{id}")
